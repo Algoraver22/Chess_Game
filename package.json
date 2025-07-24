@@ -1,0 +1,26 @@
+{
+  "name": "chess_game",
+  "version": "1.0.0",
+  "description": "Chess Game App",
+  "keywords": [
+    "chess",
+    "game",
+    "node"
+  ],
+  "license": "ISC",
+  "author": "Anurag Chaturevdi",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.11"
+  }
+}
