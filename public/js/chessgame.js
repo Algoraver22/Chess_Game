@@ -28,7 +28,7 @@ let lastMove = null;
 let moves = [];
 let isAIMode = false;
 let isAIThinking = false;
-let currentPlayerName = 'Anurag';
+let currentPlayerName = 'Player';
 let opponentName = 'Waiting...';
 const MOVE_COOLDOWN = 100;
 
@@ -386,7 +386,7 @@ socket.on("gameStarted", function() {
 
 // Show name modal on page load
 startGameBtn.addEventListener('click', () => {
-    currentPlayerName = playerNameInput.value.trim() || 'Anurag';
+    currentPlayerName = playerNameInput.value.trim() || 'Player';
     playerNameDisplay.textContent = currentPlayerName;
     nameModal.style.display = 'none';
     updateStatus('Connecting...');
