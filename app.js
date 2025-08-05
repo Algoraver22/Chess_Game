@@ -2,7 +2,7 @@
 const express = require ("express");
 const socket = require("socket.io");
 const http = require("http");
-const {Chess} = require("chess.js");
+const Chess = require("chess.js").Chess;
 const path = require("path");
 
 const app = express();
@@ -14,6 +14,7 @@ const io = socket(server);
 //chess.js documentation
 const chess = new Chess(); 
 let players = {};
+let playerNames = {};
 let currentPlayer = "w";
 let gameStarted = false; //message logic
 
@@ -49,12 +50,36 @@ io.on("connection", function(uniquesocket){
         uniquesocket.emit("spectatorRole");
     }
 
+    // Handle player name
+    uniquesocket.on("playerName", function(name) {
+        playerNames[uniquesocket.id] = name;
+        
+        // Send opponent's name to current player
+        if (uniquesocket.id === players.white && players.black) {
+            const opponentName = playerNames[players.black] || 'Player 2';
+            uniquesocket.emit('opponentName', opponentName);
+            
+            // Send current player's name to opponent
+            const currentName = playerNames[uniquesocket.id] || 'Player 1';
+            io.to(players.black).emit('opponentName', currentName);
+        } else if (uniquesocket.id === players.black && players.white) {
+            const opponentName = playerNames[players.white] || 'Player 1';
+            uniquesocket.emit('opponentName', opponentName);
+            
+            // Send current player's name to opponent
+            const currentName = playerNames[uniquesocket.id] || 'Player 2';
+            io.to(players.white).emit('opponentName', currentName);
+        }
+    });
+
     uniquesocket.on("disconnect", function(){
         if(uniquesocket.id === players.white){
             delete players.white;
+            delete playerNames[uniquesocket.id];
         }
         else if(uniquesocket.id === players.black){
-            delete players.black;  
+            delete players.black;
+            delete playerNames[uniquesocket.id];
         }
 
         //button logic
