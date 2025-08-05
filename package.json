@@ -12,6 +12,7 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -22,5 +23,8 @@
   },
   "devDependencies": {
     "tailwindcss": "^4.1.11"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
