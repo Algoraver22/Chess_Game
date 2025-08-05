@@ -384,6 +384,10 @@ socket.on("gameStarted", function() {
     updateStatus('Game in progress', true);
 });
 
+// Ensure input is empty on page load
+playerNameInput.value = '';
+playerNameInput.placeholder = 'Enter your name';
+
 // Show name modal on page load
 startGameBtn.addEventListener('click', () => {
     currentPlayerName = playerNameInput.value.trim() || 'Player';
